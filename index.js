@@ -2,7 +2,7 @@ const express = require("express"); // Used to set up a server
 const cors = require("cors"); // Used to prevent errors when working locally
 
 const app = express(); // Initialize express as an app variable
-app.set("port", process.env.PORT || 6969); // Set the port
+app.set("port", process.env.PORT || 9000); // Set the port
 app.use(express.json()); // Enable the server to handle JSON requests
 app.use(cors()); // Dont let local development give errors
 
@@ -13,7 +13,7 @@ app.use(express.static('public'))
 const userRoute = require("./routes/userRoute");
 const categoriesRoute = require("./routes/categoriesRoute");
 const productsRoute = require("./routes/productsRoute");
-const ordersRoute = require("./routes/ordersRoute");
+
 
 
 app.get("/", (req, res) => {
@@ -30,7 +30,7 @@ app.use("/categories", categoriesRoute);
 
 app.use("/products", productsRoute); 
 
-app.use("/orders", ordersRoute);
+
 
 
 app.listen(app.get("port"), () => {

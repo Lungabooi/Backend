@@ -4,7 +4,7 @@ const con = require("../lib/db_connection");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const middleware = require("../middleware/auth");
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 
 router.get("/", (req, res) => {
@@ -31,11 +31,11 @@ router.post("/register", (req, res) => {
       full_name,
       email,
       password,
+      phone_number,
+      join_date,
+      cart,
+      product_Id,
       user_type,
-      phone,
-      country,
-      billing_address,
-      default_shipping_address,
     } = req.body;
 
     // The start of hashing / encryption
@@ -47,11 +47,11 @@ router.post("/register", (req, res) => {
       email,
       // We sending the hash value to be stored within the table
       password:hash,
+      phone_number,
+      join_date,
+      cart,
+      product_Id,
       user_type,
-      phone,
-      country,
-      billing_address,
-      default_shipping_address,
     };
 
     // connection to the database 
@@ -89,13 +89,14 @@ router.post("/login", (req, res) => {
           const payload = {
             user: {
               user_id: result[0].user_id,
-              full_name: result[0].full_name,
-              email: result[0].email,
+              email: result[0].user_email,
+              full_name: result[0].user_full_name,
+              password: result[0].user_password,
+              phone_number: result[0].user_phone_number,
+              join_date: result[0].join_date,
+              cart: result[0].cart,
+              product_Id: result[0].product_Id,
               user_type: result[0].user_type,
-              phone: result[0].phone,
-              country: result[0].country,
-              billing_address: result[0].billing_address,
-              default_shipping_address: result[0].default_shipping_address,
             },
           };
           // Creating a token and setting expiry date
