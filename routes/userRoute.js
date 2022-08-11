@@ -4,7 +4,7 @@ const con = require("../lib/db_connection");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const middleware = require("../middleware/auth");
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 
 router.get("/", (req, res) => {
@@ -31,11 +31,11 @@ router.post("/register", (req, res) => {
       full_name,
       email,
       password,
+      phone_number,
+      join_date,
+      cart,
+      product_Id,
       user_type,
-      phone,
-      country,
-      billing_address,
-      default_shipping_address,
     } = req.body;
 
     // The start of hashing / encryption
@@ -47,11 +47,11 @@ router.post("/register", (req, res) => {
       email,
       // We sending the hash value to be stored within the table
       password:hash,
+      phone_number,
+      join_date,
+      cart,
+      product_Id,
       user_type,
-      phone,
-      country,
-      billing_address,
-      default_shipping_address,
     };
 
     // connection to the database 
