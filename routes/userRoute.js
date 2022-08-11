@@ -122,19 +122,19 @@ router.post("/login", (req, res) => {
 
 
 // Verify
-router.get("/users/verify", (req, res) => {
-  const token = req.header("x-auth-token");
-  jwt.verify(token, process.env.jwtSecret, (error, decodedToken) => {
-    if (error) {
-      res.status(401).json({
-        msg: "Unauthorized Access!",
-      });
-    } else {
-      res.status(200);
-      res.send(decodedToken);
-    }
-  });
-});
+// router.get("/users/verify", (req, res) => {
+//   const token = req.header("x-auth-token");
+//   jwt.verify(token, process.env.jwtSecret, (error, decodedToken) => {
+//     if (error) {
+//       res.status(401).json({
+//         msg: "Unauthorized Access!",
+//       });
+//     } else {
+//       res.status(200);
+//       res.send(decodedToken);
+//     }
+//   });
+// });
 
 
 
@@ -280,22 +280,22 @@ router.delete("/:id", (req, res) => {
     }
 });
  
-router.post('/', (req, res)=> {
-    const {email, password, full_name, billing_address, default_shipping_address, country, phone, user_type,}= req.body
-    try{
-        con.query( 
-            `INSERT INTO users (email, password, full_name, billing_address, default_shipping_address, country, phone, user_type) values('${email}', '${password}', '${full_name}', '${billing_address}', '${default_shipping_address}', '${country}', '${phone}', '${user_type}'
-        )`, 
-            (err, result) => {
-            if (err) throw err;
-            res.send(result);
-        });
+// router.post('/', (req, res)=> {
+//     const {email, password, full_name, billing_address, default_shipping_address, country, phone, user_type,}= req.body
+//     try{
+//         con.query( 
+//             `INSERT INTO users (email, password, full_name, billing_address, default_shipping_address, country, phone, user_type) values('${email}', '${password}', '${full_name}', '${billing_address}', '${default_shipping_address}', '${country}', '${phone}', '${user_type}'
+//         )`, 
+//             (err, result) => {
+//             if (err) throw err;
+//             res.send(result);
+//         });
         
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({msg: error})
-    };
-});
+//     } catch (error) {
+//         console.log(error)
+//         res.status(400).json({msg: error})
+//     };
+// });
 
 router.put("/:id", (req, res) => {
     const{
