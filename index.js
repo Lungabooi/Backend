@@ -1,5 +1,6 @@
 const express = require("express"); // Used to set up a server
 const cors = require("cors"); // Used to prevent errors when working locally
+const path = require("path")
 
 const app = express(); // Initialize express as an app variable
 app.set("port", process.env.PORT || 9000); // Set the port
