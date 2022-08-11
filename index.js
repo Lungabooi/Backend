@@ -6,8 +6,10 @@ app.set("port", process.env.PORT || 9000); // Set the port
 app.use(express.json()); // Enable the server to handle JSON requests
 app.use(cors()); // Dont let local development give errors
 
+
+const staticPath = path.join(__dirname + 'public')
 // connecting my index.html 
-app.use(express.static('public'))
+app.use(express.static(staticPath))
 
 // Import routes
 const userRoute = require("./routes/userRoute");
@@ -17,7 +19,7 @@ const productsRoute = require("./routes/productsRoute");
 
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/" + "public/index.html")
+    res.sendFile(path.join(__dirname + "login.html"))
 });
 
 // app.get("/login", (req, res) => {
