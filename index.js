@@ -14,7 +14,6 @@ app.use(express.static(staticPath))
 
 // Import routes
 const userRoute = require("./routes/userRoute");
-const categoriesRoute = require("./routes/categoriesRoute");
 const productsRoute = require("./routes/productsRoute");
 
 
@@ -28,8 +27,6 @@ app.get("/login", (req, res) => {
 });
 
 app.use("/users", userRoute);
-
-app.use("/categories", categoriesRoute);
 
 app.use("/products", productsRoute); 
 

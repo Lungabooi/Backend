@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const middleware = require("../middleware/auth");
 // const nodemailer = require('nodemailer');
 
-
+//Get all users from the database
 router.get("/", (req, res) => {
     try {
         con.query(`SELECT * FROM users`, (err, result) => {
@@ -17,6 +17,53 @@ router.get("/", (req, res) => {
         console.log(error);
         res.status(400).send(error)
     }
+});
+
+//Getting a single user by Id from Users table.
+
+router.get("/:id", (req, res) => {
+  try {
+      con.query(`SELECT * FROM users WHERE user_id =${req.params.id}`, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+      });
+  } catch (error) {
+      console.log(error);
+      res.status(400).send(error)
+  }
+});
+
+// Delete a single user from the database
+router.delete("/:id", (req, res) => {
+  try {
+      con.query(`DELETE  FROM users WHERE user_id =${req.params.id}`, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+      });
+  } catch (error) {
+      console.log(error);
+      res.status(400).send(error)
+  }
+});
+
+router.put("/:id", (req, res) => {
+  const {
+    full_name,
+    email,
+    password,
+    phone_number,
+    join_date,
+    user_type,
+  } = req.body;
+  try {
+      con.query(`UPDATE users SET full_name='${full_name}', email='${email}', password ='${password}', phone_number='${phone_number}', join_date='${join_date}', user_type='${user_type}'   WHERE user_id =${req.params.id}`, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+      });
+  } catch (error) {
+      console.log(error);
+      res.status(400).send(error)
+  }
 });
 
 
@@ -33,8 +80,6 @@ router.post("/register", (req, res) => {
       password,
       phone_number,
       join_date,
-      cart,
-      product_Id,
       user_type,
     } = req.body;
 
@@ -49,8 +94,6 @@ router.post("/register", (req, res) => {
       password:hash,
       phone_number,
       join_date,
-      cart,
-      product_Id,
       user_type,
     };
 
@@ -121,20 +164,20 @@ router.post("/login", (req, res) => {
 
 
 
-// Verify
-// router.get("/users/verify", (req, res) => {
-//   const token = req.header("x-auth-token");
-//   jwt.verify(token, process.env.jwtSecret, (error, decodedToken) => {
-//     if (error) {
-//       res.status(401).json({
-//         msg: "Unauthorized Access!",
-//       });
-//     } else {
-//       res.status(200);
-//       res.send(decodedToken);
-//     }
-//   });
-// });
+
+router.get("/users/verify", (req, res) => {
+  const token = req.header("x-auth-token");
+  jwt.verify(token, process.env.jwtSecret, (error, decodedToken) => {
+    if (error) {
+      res.status(401).json({
+        msg: "Unauthorized Access!",
+      });
+    } else {
+      res.status(200);
+      res.send(decodedToken);
+    }
+  });
+});
 
 
 
@@ -256,29 +299,8 @@ con.query(sql, user, (err, result) => {
 
 
 
-// router.get("/:id", (req, res) => {
-//     try {
-//         con.query(`SELECT * FROM users WHERE user_id =${req.params.id}`, (err, result) => {
-//             if (err) throw err;
-//             res.send(result);
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).send(error)
-//     }
-// });
 
-router.delete("/:id", (req, res) => {
-    try {
-        con.query(`DELETE  FROM users WHERE user_id =${req.params.id}`, (err, result) => {
-            if (err) throw err;
-            res.send(result);
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
-});
+
  
 // router.post('/', (req, res)=> {
 //     const {email, password, full_name, billing_address, default_shipping_address, country, phone, user_type,}= req.body
@@ -297,19 +319,7 @@ router.delete("/:id", (req, res) => {
 //     };
 // });
 
-router.put("/:id", (req, res) => {
-    const{
-        email, password, full_name, billing_address, default_shipping_address, country, phone, user_type }= req.body
-    try {
-        con.query(`UPDATE users SET email='${email}', password='${password}', full_name =${full_name}', billing_address='${billing_address}', default_shipping_address='${default_shipping_address}', country='${country}', phone='${phone}', user_type='${user_type}'   WHERE user_id =${req.params.id}`, (err, result) => {
-            if (err) throw err;
-            res.send(result);
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
-});
+
 
 
 
