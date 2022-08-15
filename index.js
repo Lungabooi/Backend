@@ -18,12 +18,10 @@ const productsRoute = require("./routes/productsRoute");
 
 
 
-// app.get("/", (req, res) => {
-//     res.sendFile(path.join(__dirname + "login.html"))
-// });
+app.use(express.static("public"));//Static
 
-app.get("/login", (req, res) => {
-    res.sendFile(__dirname + "/login" + ".html")
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/" + "index.html")
 });
 
 app.use("/users", userRoute);
