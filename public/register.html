@@ -3,29 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./register.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
-    <form>
+  
+    <form id="form" method="post">
         <h2>Register Form</h2>
         <div class="input-container">
-          <i class="fa fa-user icon"></i>
-          <input class="input-field" type="text" placeholder="full name" name="">
+         
+          <input class="input-field"  id="full_name" type="text" placeholder="full name" name="full_name">
         </div>
       
         <div class="input-container">
-          <i class="fa fa-envelope icon"></i>
-          <input class="input-field" type="text" placeholder="Email" name="email">
+          
+          <input class="input-field" id="email" type="text" placeholder="Email" name="email">
         </div>
       
         <div class="input-container">
-          <i class="fa fa-key icon"></i>
-          <input class="input-field" type="password" placeholder="Password" name="psw">
+        
+          <input class="input-field" id="password" type="password" placeholder="Password" name="password">
+        </div>
+
+        <div class="input-container">
+        
+          <input class="input-field" id="phone_number" type="text" placeholder="phone number" name="phone_number">
+        </div>
+        <div class="input-container">
+        
+          <input class="input-field" id="join_date" type="date" placeholder="join date" name="join_date">
+        </div>
+
+        <div class="input-container">
+        
+          <input class="input-field" id="user" type="text" placeholder="user type" name="user_type">
         </div>
       
-        <button type="submit" class="btn">Register</button>
+        <button type="submit"  action="submit" value="submit">Register</button>
       </form>
     
 </body>
 </html>
+
+<script>
+  const form = document.getElementById("form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const full_name = document.getElementById("full_name").value;
+    const password= document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const phone_number = document.getElementById("phone_number").value;
+    const join_date = document.getElementById("join_date").value;
+    fetch("https://bg-footwear.herokuapp.com/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        full_name:full_name, 
+        password: password,
+        email: email,
+        phone_number:phone_number,
+        join_date:join_date,
+
+      }),
+    })
+
+      .then((response) => response.json())
+     
+      .then((data) => {
+        
+        console.log(data)
+       
+      });
+  });
+
+
+
+
+
+
+
+</script>

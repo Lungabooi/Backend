@@ -5,59 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body><div class="login">
 	<h1>Login</h1>
-    <form action="https://bg-footwear.herokuapp.com/users/login" method="POST">
+    <form id="form" method="post">
     
-    	<input type="text"  id="email" name="email" placeholder="email" autocomplete="off" required="required" />
-        <input type="text" id="password" name="password" placeholder="Password"  autocpmplete= "off" required="required" />
+    	<input type="email"  id="email" name="email" placeholder="email" autocomplete="off" required="required" />
+        <input type="password" id="password" name="password" placeholder="Password"  autocpmplete= "off" required="required" />
         <button type="submit" action="submit" value="submit"> Login</button>
+        <a href="./register.html">Register</a>
     </form>
 </div> 
 <script>
 
+</script>
+</body>
+</html>
+
+<script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      fetch("https://bg-footwear.herokuapp.com/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
+
+        .then((response) => response.json())
+       
+        .then((data) => {
+          
+          console.log(data)
+         
+        });
+    });
 
 
 
 
-
-
-
-
-
-// const mysql = require ('mysql')
-
-
-
-//  go.addEventListener('click', run);
-// async function run(){
-//     let email = document.getElementById('email').value;
-//     let password = document.getElementById('password').value;
-//      const res = await fetch("https://bg-footwear.herokuapp.com/login",
-//      {
-//         headers:{
-//             'Content-type': 'application/json'
-//         },
-//         method:'POST',
-//         body: JSON.stringify({email: email, password: password}),
-
-
-        
-//      })
-//      const data = await res.json();
-    
-//     console.log(data); () => {
-//         window.localStorage.setItem(token, )
-//     }
-
-    
-    
-//}
 
 
 
 </script>
-</body>
-</html>
