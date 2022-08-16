@@ -19,7 +19,7 @@ app.use(express.static(staticPath))
 // Import routes
 const userRoute = require("./routes/userRoute");
 const productsRoute = require("./routes/productsRoute");
-const cartRoute = require("../Backend/routes/cartRoute");
+const cartRoute = require("./Backend/routes/cartRoute");
 
 
 // Login page
