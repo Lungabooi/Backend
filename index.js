@@ -10,6 +10,20 @@ app.use(cors({
     credentials: true,
 })); // Dont let local development give errors
 
+// Set header
+app.use((req, res, next)=>{
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    next();
+});
+
+// This one goes to the bottom of your index.js
+module.exports = {
+    devServer: {
+        Proxy: '*'
+    }
+}
+
 
 const staticPath = path.join(__dirname + 'public')
 // connecting my index.html 
